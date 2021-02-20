@@ -1,0 +1,3 @@
+[submodule "NxtVR_sketch/src/hid_hmd"]
+	path = NxtVR_sketch/src/hid_hmd
+	url = https://github.com/vis3r/stm32duino_HID_HeadMountedDisplay
