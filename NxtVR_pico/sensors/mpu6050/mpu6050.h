@@ -21,19 +21,17 @@
 #define I2C_PORT i2c0
 
 #include "hardware/i2c.h"
-#include "bsp/board.h"
-#include "tusb.h"
 
 class MPU6050
 {
-    public:
-        int16_t temp;
-        int16_t accel[3];
-        int16_t gyro[3];
-        uint16_t bias[6];
+   public:
+      int16_t temp;
+      int16_t accel[3];
+      int16_t gyro[3];
+      uint16_t bias[6];
 
-        void begin();
-        void configure(uint16_t *bias);
-        void readAccel(int16_t *accel);
-        void readGyro(int16_t *gyro);
+      void begin();
+      void configure(uint16_t *bias);
+      void readAccel(int16_t *accel);
+      void readGyro(int16_t *gyro);
 };
