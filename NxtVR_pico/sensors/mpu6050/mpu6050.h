@@ -1,3 +1,4 @@
+#include <cstdint>
 #define MPU6050_ADDRESS   0x68
 #define MPU6050_POWER     0x6B
 #define MPU6050_ACCEL_X   0x3B

@@ -1,4 +1,5 @@
 #include "mpu6050.h"
+#include <cstdint>
 
 void MPU6050::begin()
 {

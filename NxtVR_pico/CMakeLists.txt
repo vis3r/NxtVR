@@ -12,3 +12,12 @@ pico_add_extra_outputs(nxtvr)
 
 pico_enable_stdio_usb(nxtvr 1)
 
+
+add_executable(calibration
+   calibration.cpp
+   sensors/mpu6050/mpu6050.cpp)
+# Pull in our (to be renamed) simple get you started dependencies
+target_link_libraries(calibration pico_stdlib hardware_i2c)
+target_include_directories(calibration PRIVATE ${CMAKE_CURRENT_LIST_DIR})
+pico_add_extra_outputs(calibration)
+
