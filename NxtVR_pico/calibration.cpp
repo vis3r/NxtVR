@@ -1,3 +1,9 @@
+/*
+ * This calibration program is based upon the Luis Ródenas <luisrodenaslorda@gmail.com> arduino sketch, so all of the logic and math behind the code 
+ * belongs to him. This program has been modified to work with our own way of working with the mpu6050
+ * TODO: Clean the code so it's easier to read!
+*/
+
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 #include "pico/time.h"
@@ -8,12 +14,14 @@
 using namespace std;
 MPU6050 mpu6050;
 
+
+
 int buffersize=1000;     //Amount of readings used to average, make it higher to get more precision but sketch will be slower  (default:1000)
 int acel_deadzone=8;     //Acelerometer error allowed, make it lower to get more precision, but sketch may not converge  (default:8)
 int giro_deadzone=1;     //Giro error allowed, make it lower to get more precision, but sketch may not converge  (default:1)
 
 int mean_ax,mean_ay,mean_az,mean_gx,mean_gy,mean_gz,state=0;
-uint16_t bias[6] = {0,0,0,0,0,0};
+int16_t bias[6] = {0,0,0,0,0,0};
 
 
 void meansensors(){
@@ -58,7 +66,7 @@ void calibration(){
     mpu6050.configure(bias);
     meansensors();
     cout << "..." << endl;
-
+    cout << mean_ax << endl;
     if (abs(mean_ax)<=acel_deadzone) ready++;
     else bias[0]=bias[0]-mean_ax/acel_deadzone;
 
@@ -93,7 +101,6 @@ int main()
    mpu6050.begin();
 
    cout << "Send any character to start!" << endl;
-   cin >> message;
    cout << "\nMPU6050 Calibration Sketch";
    sleep_ms(2000);
    cout << "\nYour MPU6050 should be placed in horizontal position, with package letters facing up. \nDon't touch it until you see a finish message.\n";
@@ -131,7 +138,7 @@ int main()
          cout << "\t";
          cout << mean_gy; 
          cout << "\t";
-         cout << mean_gz;
+         cout << mean_gz << endl;
          cout << "Your offsets:\t";
          cout << bias[0]; 
          cout << "\t";

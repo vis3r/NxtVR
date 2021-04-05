@@ -7,7 +7,7 @@ void MPU6050::begin()
    i2c_write_blocking(I2C_PORT, MPU6050_ADDRESS, val, 2, false);
 }
 
-void MPU6050::configure(uint16_t *bias)
+void MPU6050::configure(int16_t *bias)
 {
    /* 
     * TODO: make a bias calibration function/program
@@ -16,13 +16,11 @@ void MPU6050::configure(uint16_t *bias)
 
    uint8_t biasRegs[6] = {MPU6050_OFFSET_AX, MPU6050_OFFSET_AY, MPU6050_OFFSET_AZ,
       MPU6050_OFFSET_GX, MPU6050_OFFSET_GY, MPU6050_OFFSET_GZ};
-
+   
    for(int i = 0; i < 6; i++)
    {
-      uint8_t byte1 = (uint8_t)(bias[i] >> 8);
-      uint8_t byte2 = (uint8_t)(bias[i]);
-      i2c_write_blocking(I2C_PORT, biasRegs[i], &byte1, 1, true);
-      i2c_write_blocking(I2C_PORT, biasRegs[i], &byte2, 1, false);
+      uint8_t val[] = {biasRegs[i], (uint8_t)(bias[i] >> 8), (uint8_t)(bias[i])};
+      i2c_write_blocking(I2C_PORT, MPU6050_ADDRESS, val, 3, false);
    }
 
 }
