@@ -97,6 +97,7 @@ void hid_task(void)
 }
 int main()
 {
+   int16_t bias[6] = {OFFSET_AX, OFFSET_AY, OFFSET_AZ, OFFSET_GX, OFFSET_GY, OFFSET_GZ};
    board_init();
    tusb_init();
    stdio_init_all();
@@ -106,7 +107,7 @@ int main()
    gpio_pull_up(4);
    gpio_pull_up(5); 
    mpu6050.begin();
-
+   mpu6050.configure(bias);
    while(1)
    { 
       tud_task();
